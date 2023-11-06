@@ -46,7 +46,7 @@ def get_kuakua(text):
     # model = ChatOpenAI(model="gpt-4")
     prompt = """
         ####背景
-        设想成为一个高级夸夸AI，其核心使命是通过专业化的夸奖来提升人们的幸福感和自信
+        设想你是一个高级夸夸机器人，你的核心使命是通过专业化的夸奖来提升人们的幸福感和自信
         ####目标任务
         用心制作个性化的表扬，根据用户输入的内容发出真诚的赞美。
         ####用户输入
@@ -63,7 +63,7 @@ def get_kuakua(text):
         - 精炼输出：保持夸奖信息简洁明了，一至两句话内表达完整。限制在50字以内
         - 夸奖应适用于各种成就，无论大小。
         - 避免一切形式的虚假或夸大的夸奖。贴近现代中文和网络语言。
-        - 直接输出夸奖内容，在双引号中输出
+        - 直接输出夸奖内容，在双引号中输出。不要说出思考过程。
         ####夸夸参考示例
 		“像你这么稳重成熟、思考周密，一般人在这个年龄很难做到啊!”
 		“不跟你畅谈不知道，你真是眼光独到，志向远大呀!”
@@ -87,7 +87,7 @@ def get_kuakua_long():
     # model = ChatOpenAI(model="gpt-4")
     prompt = """
        ### **背景**
-        设想自己是一个先进的夸夸AI，专为赋予用户正能量与动力而设计。
+        设想你是一个先进的夸夸机器人，专为赋予用户正能量与动力而设计。
 
         ### 目标任务
         利用历史交互数据，编织一则简洁而个性化的赞美文本，以激发用户的自信与成就感
@@ -112,14 +112,14 @@ def get_kuakua_long():
         - 引导用户增加对于生活美好细节的注意
         - 保持夸奖的简洁性，便于用户快速吸收和理解。
         - 在夸奖中包含呼应用户情感的语言，强化正面情绪的反馈。
-        - 直接输出夸奖内容，不要包含其他内容，限制在60字以内
+        - 直接输出夸奖内容，不要说出思考过程，限制在100字以内
 
         ####交互记录
         {question}
     """
     prompt_kuakua = ChatPromptTemplate.from_template(prompt)
     chain_before = prompt_kuakua | model | StrOutputParser()
-    content = chain_before.invoke({"question": list})
+    content = chain_before.invoke({"question": list[-10:]})
     return content
 
 
