@@ -3,17 +3,19 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema.output_parser import StrOutputParser
 from flask import Flask, request, jsonify
 from flask_cors import CORS  
-import dotenv
+from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
 CORS(app) 
 list = []
 
-dotenv.load_dotenv()
+load_dotenv(verbose=True)
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 OPENAI_API_BASE = os.getenv('OPENAI_API_BASE')
 
+print(OPENAI_API_KEY)
+print(OPENAI_API_BASE)
 
 @app.route('/')
 def index():
@@ -40,7 +42,7 @@ def get_large_text():
 
 def get_kuakua(text):
     list.append(text)
-    model = ChatOpenAI(model="gpt-3.5-turbo")
+    model = ChatOpenAI(model="gpt-3.5-turbo",openai_api_base=OPENAI_API_BASE,openai_api_key=OPENAI_API_KEY)
     # model = ChatOpenAI(model="gpt-4")
     prompt = """
         ####背景
@@ -81,7 +83,7 @@ def get_kuakua(text):
 
 def get_kuakua_long():
     # db = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory='./persist')
-    model = ChatOpenAI(model="gpt-3.5-turbo")
+    model = ChatOpenAI(model="gpt-3.5-turbo",openai_api_base=OPENAI_API_BASE,openai_api_key=OPENAI_API_KEY)
     # model = ChatOpenAI(model="gpt-4")
     prompt = """
        ### **背景**
@@ -122,6 +124,7 @@ def get_kuakua_long():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    
+    app.run(debug=True, port=5000)
 
 
