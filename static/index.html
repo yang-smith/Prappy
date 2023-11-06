@@ -27,11 +27,8 @@
             <video id="myVideo4" class="video-box" nocontrols width="320" height="240" style="display:none;">
                 <source src="/static/videos/咀嚼.mp4" type="video/mp4">
             </video>
-            <video id="myVideo4.5" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="/static/videos/咀嚼到微笑_1.mp4" type="video/mp4">
-            </video>
             <video id="myVideo5" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="/static/videos/普通文字回复1.mp4" type="video/mp4">
+                <source src="/static/videos/咀嚼到微笑_1.mp4" type="video/mp4">
             </video>
             <video id="myVideo6" class="video-box" nocontrols width="320" height="240" style="display:none;">
                 <source src="/static/videos/普通文字回复2.mp4" type="video/mp4">
@@ -62,8 +59,7 @@
         const video2 = document.getElementById('myVideo2');
         const video3 = document.getElementById('myVideo3');
         const video4 = document.getElementById('myVideo4');
-        const video45 = document.getElementById('myVideo4.5');
-        // const video5 = document.getElementById('myVideo5');
+        const video5 = document.getElementById('myVideo5');
         const video6 = document.getElementById('myVideo6');
         const video7 = document.getElementById('myVideo7');
         const resultTextarea = document.getElementById("text-output");
@@ -93,18 +89,13 @@
         });
         video4.addEventListener('ended', function () {
             video4.style.display = 'none';
-            video45.style.display = 'block';
-            video45.play(); //咀嚼到微笑
+            video5.style.display = 'block';
+            video5.play(); //咀嚼到微笑
         });
-        // video45.addEventListener('ended', function () {
-        //     video4.style.display = 'none';
-        //     video5.style.display = 'block';
-        //     video5.play(); //回复1
-        // });
-        video45.addEventListener('ended', function () {
+        video5.addEventListener('ended', function () {
             resultTextarea.textContent = response;
             resultTextarea.style.display = "block"
-            video45.style.display = 'none';
+            video5.style.display = 'none';
             video6.style.display = 'block';
             video6.play(); //回复2
             draggable.style.display = 'block';
