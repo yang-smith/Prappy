@@ -34,8 +34,9 @@
 }
 
 .text-box {
-    width: 900px;
-    height: 50px;
+    width: 75%;
+    height: 5%;
+    bottom: 2%;
     background-color: #fdfcfd;
     border: 2px solid #807e7f;
     padding: 10px;
@@ -120,15 +121,12 @@
     color: #D4145A;
     background-color: #fbf9fa;
     padding: 30px;
-    border: 2px solid #5b5b5b;
-    border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(158, 157, 157, 0.3);
+    border: none;
     z-index: 100;
     max-width: 300px;
     max-height: 800px;
     word-wrap: break-word;
     overflow-y: auto;
-    border: none;
 }
 
 #scroll-container {
