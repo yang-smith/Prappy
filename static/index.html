@@ -165,6 +165,7 @@
                             console.log('服务器返回的响应:', jsonResponse);
                             console.log(jsonResponse.response)
                             response = jsonResponse.response
+                            resultTextarea.textContent = response;
                         })
                         .catch(error => {
                             console.error('请求错误:', error);
