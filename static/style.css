@@ -20,9 +20,9 @@
 }
 
 .draggable {
-    width: 50px;
-    height: 50px;
-    transform: scale(4);
+    width: 100px;
+    height: 100px;
+    /* transform: scale(4); */
     cursor: grab;
     user-drag: none;
     z-index: 1;
