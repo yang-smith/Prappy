@@ -3,41 +3,41 @@
 
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 
 <body>
     <div class="main-container">
-        <img id="show-png" src="img/资源 1.png" alt="face" class="show-png">
+        <img id="show-png" src="/static/img/资源 1.png" alt="face" class="show-png">
         <div id="container" class="container">
             <input id="inputbox" type="text" class="text-box" placeholder="Enter text here" />
         </div>
         <div class="face">
-            <img id="face-png" src="img/face.png" alt="face" class="face-box" style="display:none;">
-            <img id="open-mouse-png" src="img/张嘴状态.png" alt="face" class="face-box" style="display:none;">
+            <img id="face-png" src="/static/img/face.png" alt="face" class="face-box" style="display:none;">
+            <img id="open-mouse-png" src="/static/img/张嘴状态.png" alt="face" class="face-box" style="display:none;">
             <video id="myVideo" class="video-box" nocontrols width="320" height="240">
-                <source src="videos/blink.mp4" type="video/mp4">
+                <source src="/static/videos/blink.mp4" type="video/mp4">
             </video>
             <video id="myVideo2" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="videos/open-mouse.mp4" type="video/mp4">
+                <source src="/static/videos/open-mouse.mp4" type="video/mp4">
             </video>
             <video id="myVideo3" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="videos/闭嘴.mp4" type="video/mp4">
+                <source src="/static/videos/闭嘴.mp4" type="video/mp4">
             </video>
             <video id="myVideo4" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="videos/咀嚼.mp4" type="video/mp4">
+                <source src="/static/videos/咀嚼.mp4" type="video/mp4">
             </video>
             <video id="myVideo4.5" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="videos/咀嚼到微笑_1.mp4" type="video/mp4">
+                <source src="/static/videos/咀嚼到微笑_1.mp4" type="video/mp4">
             </video>
             <video id="myVideo5" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="videos/普通文字回复1.mp4" type="video/mp4">
+                <source src="/static/videos/普通文字回复1.mp4" type="video/mp4">
             </video>
             <video id="myVideo6" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="videos/普通文字回复2.mp4" type="video/mp4">
+                <source src="/static/videos/普通文字回复2.mp4" type="video/mp4">
             </video>
             <video id="myVideo7" class="video-all" nocontrols width="320" height="240" style="display:none;">
-                <source src="videos/长文回复吐彩虹.mp4" type="video/mp4">
+                <source src="/static/videos/长文回复吐彩虹.mp4" type="video/mp4">
             </video>
         </div>
         
@@ -50,7 +50,7 @@
     <textarea id="Result" class="cute-text-output" style="display:none;" readonly></textarea>
     <div id="getResult"></div>
     <div id="target-box" class="blue-box"></div>
-    <img id="draggable" class="draggable" src="img/small-ball.png">
+    <img id="draggable" class="draggable" src="/static/img/small-ball.png">
     <div id="scroll-container">
         <div id="scroll-content">
             Long text content test. 
@@ -125,7 +125,7 @@
             draggable.style.cursor = "grabbing";
             video2.style.zIndex = 3;
             draggable.style.zIndex = 4;
-            draggable.src = "img/big-ball.png"
+            draggable.src = "/static/img/big-ball.png"
             video2.style.display = 'block';
             video2.play();
             resultTextarea.style.display = 'none';
@@ -156,7 +156,7 @@
                     draggable.style.display = 'none';
                     draggable.style.left = oldDragLeft;
                     draggable.style.top = oldDragTop;
-                    draggable.src = "img/small-ball.png"
+                    draggable.src = "/static/img/small-ball.png"
                     isDragging = false;
                     video2.style.display = 'none';
 

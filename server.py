@@ -19,7 +19,7 @@ print(OPENAI_API_BASE)
 
 @app.route('/')
 def index():
-    return app.send_static_file('./test_api.html')
+    return app.send_static_file('./index.html')
 
 @app.route('/process_text', methods=['POST'])
 def process_text():
