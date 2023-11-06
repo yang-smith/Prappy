@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <img id="show-png" src="img/资源 1.png" alt="face" class="show-png">
+        <div id="container" class="container">
+            <input id="inputbox" type="text" class="text-box" placeholder="Enter text here" />
+        </div>
+        <div class="face">
+            <img id="face-png" src="img/face.png" alt="face" class="face-box" style="display:none;">
+            <img id="open-mouse-png" src="img/张嘴状态.png" alt="face" class="face-box" style="display:none;">
+            <video id="myVideo" class="video-box" nocontrols width="320" height="240">
+                <source src="videos/blink.mp4" type="video/mp4">
+            </video>
+            <video id="myVideo2" class="video-box" nocontrols width="320" height="240" style="display:none;">
+                <source src="videos/open-mouse.mp4" type="video/mp4">
+            </video>
+            <video id="myVideo3" class="video-box" nocontrols width="320" height="240" style="display:none;">
+                <source src="videos/闭嘴.mp4" type="video/mp4">
+            </video>
+            <video id="myVideo4" class="video-box" nocontrols width="320" height="240" style="display:none;">
+                <source src="videos/咀嚼.mp4" type="video/mp4">
+            </video>
+            <video id="myVideo4.5" class="video-box" nocontrols width="320" height="240" style="display:none;">
+                <source src="videos/咀嚼到微笑_1.mp4" type="video/mp4">
+            </video>
+            <video id="myVideo5" class="video-box" nocontrols width="320" height="240" style="display:none;">
+                <source src="videos/普通文字回复1.mp4" type="video/mp4">
+            </video>
+            <video id="myVideo6" class="video-box" nocontrols width="320" height="240" style="display:none;">
+                <source src="videos/普通文字回复2.mp4" type="video/mp4">
+            </video>
+            <video id="myVideo7" class="video-all" nocontrols width="320" height="240" style="display:none;">
+                <source src="videos/长文回复吐彩虹.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+    </div>
+    <!-- <img id="bottom-png" src="资源 3.png" class="bottom-png"> -->
+    <div id="text-contain">
+        <div id="text-output" class="cute-text-output" style="display:none;">
+        </div>
+    </div>
+    <textarea id="Result" class="cute-text-output" style="display:none;" readonly></textarea>
+    <div id="getResult"></div>
+    <div id="target-box" class="blue-box"></div>
+    <img id="draggable" class="draggable" src="img/small-ball.png">
+    <div id="scroll-container">
+        <div id="scroll-content">
+            Long text content test. 
+        </div>
+    </div>
+    <script>
+        const draggable = document.getElementById("draggable");
+        const video1 = document.getElementById('myVideo');
+        const video2 = document.getElementById('myVideo2');
+        const video3 = document.getElementById('myVideo3');
+        const video4 = document.getElementById('myVideo4');
+        const video45 = document.getElementById('myVideo4.5');
+        const video5 = document.getElementById('myVideo5');
+        const video6 = document.getElementById('myVideo6');
+        const video7 = document.getElementById('myVideo7');
+        const resultTextarea = document.getElementById("text-output");
+        const face = document.getElementById('face-png')
+        const face_open_mouse = document.getElementById('open-mouse-png')
+        const topPng = document.getElementById('show-png')
+        const targetBox = document.getElementById('target-box');
+        const targetRect = targetBox.getBoundingClientRect();
+        const inputBox = document.getElementById("inputbox")
+        const scrollContent = document.getElementById("scroll-content");
+        let response;
+        let isDragging = false;
+        let video2_end = false;
+        let offsetX, offsetY;
+        let oldDragLeft, oldDragTop;
+        let count = 0;
+        // 记录红色方块的初始位置
+        oldDragLeft = draggable.style.left;
+        oldDragTop = draggable.style.top;
+
+        video2.addEventListener('ended', function () {
+            video2_end = true
+        });
+        video3.addEventListener('ended', function () {
+            video3.style.display = 'none';
+            video4.style.display = 'block';
+            video4.play(); //咀嚼
+        });
+        video4.addEventListener('ended', function () {
+            video4.style.display = 'none';
+            video45.style.display = 'block';
+            video45.play(); //咀嚼到微笑
+        });
+        // video45.addEventListener('ended', function () {
+        //     video4.style.display = 'none';
+        //     video5.style.display = 'block';
+        //     video5.play(); //回复1
+        // });
+        video45.addEventListener('ended', function () {
+            resultTextarea.textContent = response;
+            resultTextarea.style.display = "block"
+            video45.style.display = 'none';
+            video6.style.display = 'block';
+            video6.play(); //回复2
+            draggable.style.display = 'block';
+            inputBox.value = '';
+            console.log("set none");
+        });
+        video6.addEventListener('ended', function () {
+            video6.style.display = 'none';
+            inputBox.value = '';
+            face.style.display = 'none';
+            face_open_mouse.style.display = 'none';
+        });
+        draggable.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            offsetX = e.clientX - draggable.getBoundingClientRect().left;
+            offsetY = e.clientY - draggable.getBoundingClientRect().top;
+            draggable.style.cursor = "grabbing";
+            video2.style.zIndex = 3;
+            draggable.style.zIndex = 4;
+            draggable.src = "img/big-ball.png"
+            video2.style.display = 'block';
+            video2.play();
+            resultTextarea.style.display = 'none';
+        });
+
+        document.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+            draggable.style.left = e.clientX - offsetX + "px";
+            draggable.style.top = e.clientY - offsetY + "px";
+
+            if (video2_end) {
+                const draggableRect = draggable.getBoundingClientRect();
+                const draggableCenter = {
+                    x: draggableRect.left + draggableRect.width / 2,
+                    y: draggableRect.top + draggableRect.height / 2
+                };
+                if (
+                    draggableCenter.x >= targetRect.left &&
+                    draggableCenter.x <= targetRect.right &&
+                    draggableCenter.y >= targetRect.top &&
+                    draggableCenter.y <= targetRect.bottom
+                ) {
+                    face_open_mouse.style.display = 'block';
+                    targetBox.style.display = 'none';
+                    video2_end = false;
+                    video3.style.display = 'block';
+                    video3.play();
+                    draggable.style.display = 'none';
+                    draggable.style.left = oldDragLeft;
+                    draggable.style.top = oldDragTop;
+                    draggable.src = "img/small-ball.png"
+                    isDragging = false;
+                    video2.style.display = 'none';
+
+                    const textBox = document.querySelector('.text-box');
+                    const textContent = textBox.value;
+                    const data = {
+                        text: textContent
+                    };
+                    fetch('http://127.0.0.1:5000/process_text', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error('Network response was not ok.');
+                        })
+                        .then(jsonResponse => {
+                            console.log('服务器返回的响应:', jsonResponse);
+                            console.log(jsonResponse.response)
+                            response = jsonResponse.response
+                        })
+                        .catch(error => {
+                            console.error('请求错误:', error);
+                        });
+                }
+            }
+        });
+
+        // document.addEventListener("mouseup", () => {
+        //     isDragging = false;
+        // });
+
+        function getData() {
+            console.log("getData")
+            fetch('http://127.0.0.1:5000/get_large_text')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(jsonResponse => {
+                    scrollContent.innerHTML = jsonResponse.response;
+                    // scrollContent.styley.bottom = 0;
+                    // scrollContent.style.animationPlayState = 'running';
+                    scrollContent.style.animation = 'none';
+                    scrollContent.offsetHeight;
+                    scrollContent.style.bottom = '-500%';
+                    scrollContent.style.animation = 'scroll-up 10s linear forwards';
+                    // scrollContent.style.animationPlayState = 'running';
+
+                    console.log(jsonResponse.response);
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+        video1.addEventListener('dblclick', function (event) {
+            scrollContent.style.animationPlayState = 'pause';
+            resultTextarea.style.display = 'none';
+            draggable.style.display = 'none';
+            inputBox.style.display = 'none';
+            topPng.style.display = 'none';
+            console.log("double click");
+            getData();
+            video7.style.display = 'block';
+            video7.play(); //彩虹夸夸
+        });
+        video7.addEventListener('ended', function () {  //彩虹夸夸播放完回到初始状态
+            video7.style.display = 'none';
+            inputBox.value = '';
+        });
+        inputBox.addEventListener('input', function (event) {
+            video1.style.display = 'block';
+            video1.play();
+        });
+    </script>
+
+</body>
+
+</html>

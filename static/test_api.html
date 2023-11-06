@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Test API Page</title>
+<script>
+function postData() {
+    var xhr = new XMLHttpRequest();
+    var url = "/process_text";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var jsonResponse = JSON.parse(xhr.responseText);
+            document.getElementById("postResult").textContent = jsonResponse.response;
+        }
+    };
+    var data = JSON.stringify({"text": document.getElementById("inputText").value});
+    xhr.send(data);
+}
+
+function getData() {
+    var xhr = new XMLHttpRequest();
+    var url = "/get_large_text";
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var jsonResponse = JSON.parse(xhr.responseText);
+            document.getElementById("getResult").textContent = jsonResponse.response;
+        }
+    };
+    xhr.send();
+}
+</script>
+</head>
+<body>
+<h2>夸夸</h2>
+<input type="text" id="inputText" placeholder="Enter text here">
+<button onclick="postData()">Send</button>
+<div id="postResult"></div>
+
+<h2>彩虹</h2>
+<button onclick="getData()">Send</button>
+<div id="getResult"></div>
+</body>
+</html>
