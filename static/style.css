@@ -67,7 +67,7 @@
 .blue-box {
     width: 80px;
     height: 80px;
-    background-color: blue;
+    background-color: rgb(210, 210, 212);
     position: fixed;
     top: 50%;
     left: 50%;
@@ -87,7 +87,7 @@
     /* 将 .blue-box 左侧与页面中心对齐 */
     transform: translate(-50%, -50%);
     /* 使用 transform 属性将 .blue-box 居中 */
-    z-index: 1;
+    z-index: 0;
 }
 
 .video-box {

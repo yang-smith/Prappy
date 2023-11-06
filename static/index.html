@@ -13,7 +13,7 @@
             <input id="inputbox" type="text" class="text-box" placeholder="Enter text here" />
         </div>
         <div class="face">
-            <img id="face-png" src="/static/img/face.png" alt="face" class="face-box" style="display:none;">
+            <!-- <img id="face-png" src="/static/img/face.png" alt="face" class="face-box" style="display:none;"> -->
             <img id="open-mouse-png" src="/static/img/张嘴状态.png" alt="face" class="face-box" style="display:none;">
             <video id="myVideo" class="video-box" nocontrols width="320" height="240">
                 <source src="/static/videos/blink.mp4" type="video/mp4">
@@ -63,11 +63,11 @@
         const video3 = document.getElementById('myVideo3');
         const video4 = document.getElementById('myVideo4');
         const video45 = document.getElementById('myVideo4.5');
-        const video5 = document.getElementById('myVideo5');
+        // const video5 = document.getElementById('myVideo5');
         const video6 = document.getElementById('myVideo6');
         const video7 = document.getElementById('myVideo7');
         const resultTextarea = document.getElementById("text-output");
-        const face = document.getElementById('face-png')
+        // const face = document.getElementById('face-png')
         const face_open_mouse = document.getElementById('open-mouse-png')
         const topPng = document.getElementById('show-png')
         const targetBox = document.getElementById('target-box');
@@ -80,7 +80,6 @@
         let offsetX, offsetY;
         let oldDragLeft, oldDragTop;
         let count = 0;
-        // 记录红色方块的初始位置
         oldDragLeft = draggable.style.left;
         oldDragTop = draggable.style.top;
 
@@ -115,7 +114,7 @@
         video6.addEventListener('ended', function () {
             video6.style.display = 'none';
             inputBox.value = '';
-            face.style.display = 'none';
+            // face.style.display = 'none';
             face_open_mouse.style.display = 'none';
         });
         draggable.addEventListener("mousedown", (e) => {
@@ -150,15 +149,16 @@
                 ) {
                     face_open_mouse.style.display = 'block';
                     targetBox.style.display = 'none';
+                    video2.style.display = 'none';
                     video2_end = false;
-                    video3.style.display = 'block';
                     video3.play();
+                    video3.style.display = 'block';
                     draggable.style.display = 'none';
                     draggable.style.left = oldDragLeft;
                     draggable.style.top = oldDragTop;
                     draggable.src = "/static/img/small-ball.png"
                     isDragging = false;
-                    video2.style.display = 'none';
+                    
 
                     const textBox = document.querySelector('.text-box');
                     const textContent = textBox.value;
@@ -205,13 +205,10 @@
                 })
                 .then(jsonResponse => {
                     scrollContent.innerHTML = jsonResponse.response;
-                    // scrollContent.styley.bottom = 0;
-                    // scrollContent.style.animationPlayState = 'running';
                     scrollContent.style.animation = 'none';
                     scrollContent.offsetHeight;
                     scrollContent.style.bottom = '-500%';
                     scrollContent.style.animation = 'scroll-up 10s linear forwards';
-                    // scrollContent.style.animationPlayState = 'running';
 
                     console.log(jsonResponse.response);
                 })
