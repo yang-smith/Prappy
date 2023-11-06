@@ -232,6 +232,10 @@
         });
         video7.addEventListener('ended', function () {  //彩虹夸夸播放完回到初始状态
             video7.style.display = 'none';
+            // resultTextarea.style.display = 'block';
+            draggable.style.display = 'block';
+            inputBox.style.display = 'block';
+            topPng.style.display = 'block';
             inputBox.value = '';
         });
         inputBox.addEventListener('input', function (event) {
