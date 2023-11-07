@@ -8,13 +8,13 @@
 
 <body>
     <div class="main-container">
-        <img id="show-png" src="/static/img/资源 1.png" alt="face" class="show-png">
+        <img id="show-png" src="/static/img/show-png.png" alt="face" class="show-png">
         <div id="container" class="container">
             <input id="inputbox" type="text" class="text-box" placeholder="Enter text here" />
         </div>
         <div class="face">
             <!-- <img id="face-png" src="/static/img/face.png" alt="face" class="face-box" style="display:none;"> -->
-            <img id="open-mouse-png" src="/static/img/张嘴状态.png" alt="face" class="face-box" style="display:none;">
+            <img id="open-mouse-png" src="/static/img/open-state.png" alt="face" class="face-box" style="display:none;">
             <video id="myVideo" class="video-box" nocontrols width="320" height="240">
                 <source src="/static/videos/blink.mp4" type="video/mp4">
             </video>
@@ -22,19 +22,22 @@
                 <source src="/static/videos/open-mouse.mp4" type="video/mp4">
             </video>
             <video id="myVideo3" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="/static/videos/闭嘴.mp4" type="video/mp4">
+                <source src="/static/videos/close-mouse.mp4" type="video/mp4">
             </video>
             <video id="myVideo4" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="/static/videos/咀嚼.mp4" type="video/mp4">
+                <source src="/static/videos/loading.mp4" type="video/mp4">
             </video>
             <video id="myVideo5" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="/static/videos/咀嚼到微笑_1.mp4" type="video/mp4">
+                <source src="/static/videos/loading-display.mp4" type="video/mp4">
             </video>
             <video id="myVideo6" class="video-box" nocontrols width="320" height="240" style="display:none;">
-                <source src="/static/videos/普通文字回复2.mp4" type="video/mp4">
+                <source src="/static/videos/eyesback.mp4" type="video/mp4">
             </video>
             <video id="myVideo7" class="video-all" nocontrols width="320" height="240" style="display:none;">
-                <source src="/static/videos/长文回复吐彩虹.mp4" type="video/mp4">
+                <source src="/static/videos/rainbow.mp4" type="video/mp4">
+            </video>
+            <video id="VideoError" class="video-box" nocontrols width="320" height="240" style="display:none;">
+                <source src="/static/videos/error.mp4" type="video/mp4">
             </video>
         </div>
 
@@ -62,6 +65,7 @@
         const video5 = document.getElementById('myVideo5');
         const video6 = document.getElementById('myVideo6');
         const video7 = document.getElementById('myVideo7');
+        const video_error = document.getElementById('VideoError');
         const resultTextarea = document.getElementById("text-output");
         // const face = document.getElementById('face-png')
         const face_open_mouse = document.getElementById('open-mouse-png')
@@ -70,7 +74,7 @@
         const targetRect = targetBox.getBoundingClientRect();
         const inputBox = document.getElementById("inputbox")
         const scrollContent = document.getElementById("scroll-content");
-        let response;
+        let response; 
         let isDragging = false;
         let video2_end = false;
         let offsetX, offsetY;
@@ -85,19 +89,19 @@
         video3.addEventListener('ended', function () {
             video3.style.display = 'none';
             video4.style.display = 'block';
-            video4.play(); //咀嚼
+            video4.play(); //咀嚼 loading
         });
         video4.addEventListener('ended', function () {
             video4.style.display = 'none';
             video5.style.display = 'block';
-            video5.play(); //咀嚼到微笑
+            video5.play(); //咀嚼到微笑 loading-display
         });
         video5.addEventListener('ended', function () {
             resultTextarea.textContent = response;
             resultTextarea.style.display = "block"
             video5.style.display = 'none';
             video6.style.display = 'block';
-            video6.play(); //回复2
+            video6.play(); // eyesback
             draggable.style.display = 'block';
             inputBox.value = '';
             console.log("set none");
@@ -169,6 +173,14 @@
                         })
                         .catch(error => {
                             console.error('请求错误:', error);
+                            video_error.style.display = 'block';
+                            video_error.style.zIndex = 9;
+                            video_error.play();
+                            resultTextarea.textContent = '你都没告诉我发生了什么，我有点生气！请立刻刷新页面重试！';
+                            resultTextarea.style.display = 'block';
+                            setTimeout(function() {
+                                location.reload();
+                            }, 5000);
                         });
                 }
             }
@@ -193,7 +205,7 @@
             video2.style.display = 'block';
             video2.play();
             resultTextarea.style.display = 'none';
-
+            // video_error.style.zIndex = 0;
             document.addEventListener("mousemove", onMouseMove);
             document.addEventListener("mouseup", onMouseUp);
         });
@@ -233,7 +245,7 @@
             console.log("double click");
             getData();
             video7.style.display = 'block';
-            video7.play(); //彩虹夸夸
+            video7.play(); //彩虹夸夸 rainbow
         });
         video7.addEventListener('ended', function () {  //彩虹夸夸播放完回到初始状态
             video7.style.display = 'none';
