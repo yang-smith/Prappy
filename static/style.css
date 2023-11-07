@@ -159,7 +159,7 @@
 
 @keyframes scroll-up {
     0% {
-        bottom: -250%;
+        bottom: -400%;
         opacity: 1;
     }
 
