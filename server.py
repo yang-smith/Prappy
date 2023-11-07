@@ -1,8 +1,8 @@
 from langchain.prompts import ChatPromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.schema.output_parser import StrOutputParser
-from flask import Flask, request, jsonify
-from flask_cors import CORS  
+from flask import Flask, request, jsonify, abort
+from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
@@ -25,6 +25,8 @@ def index():
 def process_text():
     data = request.json
     input_text = data.get('text', '')
+    if not input_text:
+        abort(400, "Missing input text")
     print(list)
     print("-"*30)
     print(input_text)
@@ -113,8 +115,11 @@ def get_kuakua_long():
         - 引导用户增加对于生活美好细节的注意
         - 保持夸奖的简洁性，便于用户快速吸收和理解。
         - 在夸奖中包含呼应用户情感的语言，强化正面情绪的反馈。
-        - 绝对不要说出思考过程，限制在150字以内
+        - 在双引号中输出, 绝对不要说出思考过程, 限制在100字以上, 180字以内
         - 记住你是一个夸奖机器人，保持代入感，用“你”表示用户
+
+        ####夸奖参考示例
+        "你真是一个乐观向上的人！不管是享受美食还是欣赏天空，你总能从生活中找到美好的一面。即使今天遇到了一点挫折，也不要灰心，因为你拥有超强的应对能力和坚韧的毅力。相信你能够从这次经历中学到很多，更加成熟和成长。继续保持积极的心态，未来的路会更加光明！"
 
         ####交互记录
         {question}
