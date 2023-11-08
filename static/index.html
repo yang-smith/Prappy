@@ -152,7 +152,7 @@
                     const data = {
                         text: textContent
                     };
-                    fetch('http://127.0.0.1:5000/process_text', {
+                    fetch('https://prappy.vercel.app/api/process_text', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json; charset=utf-8'
@@ -216,7 +216,7 @@
 
         function getData() {
             console.log("getData")
-            fetch('http://127.0.0.1:5000/get_large_text')
+            fetch('https://prappy.vercel.app/api/get_large_text')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok ' + response.statusText);
